@@ -603,7 +603,7 @@ Returns all the playlists created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /artists/:artistId/playlists
+  * URL: ? /playlists/:artistId
   * Body: none
 
 * Successful Response
@@ -811,8 +811,8 @@ Updates and returns an existing playlist.
 * Require Authentication: true
 * Require proper authorization: Playlist must belong to the current user
 * Request
-  * Method: ?
-  * URL: ?
+  * Method: ? PUT
+  * URL: ? /playlists/playlistId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -914,7 +914,7 @@ Returns all the playlists created by the current user.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /me/playlists
+  * URL: ? /playlists/me
   * Body: none
 
 * Successful Response
@@ -995,7 +995,7 @@ Create and return a new comment for a song specified by id.
 * Require Authentication: true
 * Request
   * Method: ? POST
-  * URL: ? /song/:songId/comments/:commentId
+  * URL: ? /song/:songId/comments
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1195,7 +1195,7 @@ Returns all the Albums created by the current user.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /me/albums
+  * URL: ? /albums/me
   * Body: none
 
 * Successful Response
@@ -1227,7 +1227,7 @@ Returns all the albums created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /artists/:artistId/albums
+  * URL: ? /albums/artists/:artistId
   * Body: none
 
 * Successful Response
