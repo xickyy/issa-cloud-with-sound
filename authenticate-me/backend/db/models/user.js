@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [4, 30],
         noEmail(input) {
-          if(validator.isEmail(input)) {
+          if(Validator.isEmail(input)) {
             throw new Error("Cannot be an email")
           }
         }
