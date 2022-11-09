@@ -20,7 +20,7 @@ module.exports = {
       url: 'Hard work url',
       imageUrl: 'Hard work image',
       userId: 1,
-      albumId: 3
+      albumId: 1
     },
     {
       id: 2,
@@ -28,63 +28,45 @@ module.exports = {
       description: 'Kendrick tha goat',
       url: 'Hard work url',
       imageUrl: 'Hard work image',
-      userId: 1,
-      albumId: 3
+      userId: 2,
+      albumId: 2
     },
     {
       id: 3,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 2,
+      title: 'Love letter',
+      description: 'I wrote this song in a love letter',
+      url: 'Love letter url',
+      imageUrl: 'Love letter image',
+      userId: 3,
       albumId: 3
     },
     {
       id: 4,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 2,
-      albumId: 3
+      title: 'And to those i love, thanks for sticking around',
+      description: 'Take me homeee',
+      url: 'And to those i love url',
+      imageUrl: 'And to those i love image',
+      userId: 1,
+      albumId: 4
     },
     {
       id: 5,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 1,
-      albumId: 3
+      title: 'ZaZa',
+      description: 'Flexin',
+      url: 'ZaZa url',
+      imageUrl: 'ZaZa image',
+      userId: 3,
+      albumId: 5
     },
     {
       id: 6,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 1,
-      albumId: 3
-    },
-    {
-      id: 7,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 1,
-      albumId: 3
-    },
-    {
-      id: 8,
-      title: 'Hard work',
-      description: 'RIP Juice <3',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
-      userId: 1,
-      albumId: 3
-    },
+      title: 'Waves',
+      description: 'Im a god',
+      url: 'Waves url',
+      imageUrl: 'Waves image',
+      userId: 3,
+      albumId: 6
+    }
    ])
   },
 
@@ -95,5 +77,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('People', null, {});
   }
 };
