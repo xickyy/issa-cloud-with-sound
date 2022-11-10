@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 
       User.hasMany(models.Comment, {
         onDelete: 'cascade'
-      })
+      });
     }
   }
   User.init({

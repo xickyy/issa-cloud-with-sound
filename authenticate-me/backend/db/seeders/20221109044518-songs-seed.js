@@ -26,8 +26,8 @@ module.exports = {
       id: 2,
       title: 'Humble',
       description: 'Kendrick tha goat',
-      url: 'Hard work url',
-      imageUrl: 'Hard work image',
+      url: 'Humble url',
+      imageUrl: 'Humble image',
       userId: 2,
       albumId: 2
     },
