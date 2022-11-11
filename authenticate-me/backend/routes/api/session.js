@@ -25,6 +25,9 @@ validateLogin,
     const { credential, password } = req.body;
 
     const user = await User.login({ credential, password });
+    
+
+
 
     if (!user) {
       const err = new Error('Login failed');
@@ -36,9 +39,12 @@ validateLogin,
 
     await setTokenCookie(res, user);
 
-    return res.json({
+    user.dataValues.token = req.cookies.token
+    console.log('COOKIES', user.token)
+
+    return res.json(
       user
-    });
+      );
   }
 );
 
