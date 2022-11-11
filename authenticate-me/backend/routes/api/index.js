@@ -10,9 +10,13 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+router.use('/songs', require('./songs.js'));
+
+router.use('/albums', require('./albums.js'));
+
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
+// });
 // backend/routes/api/index.js
 // ...
 

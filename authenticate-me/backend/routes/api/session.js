@@ -24,8 +24,8 @@ validateLogin,
   async (req, res, next) => {
     const { credential, password } = req.body;
 
-    const user = await User.login({ credential, password });
-    
+    const user = await User.login({ credential, password, firstName, lastName });
+
 
 
 
@@ -40,7 +40,7 @@ validateLogin,
     await setTokenCookie(res, user);
 
     user.dataValues.token = req.cookies.token
-    console.log('COOKIES', user.token)
+
 
     return res.json(
       user
@@ -64,9 +64,10 @@ router.get('/',
   (req, res) => {
     const { user } = req;
     if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
+      user.dataValues.token = req.cookies.token
+      return res.json(
+        user
+      );
     } else return res.json({});
   }
 );
