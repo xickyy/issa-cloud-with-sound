@@ -9,4 +9,19 @@ router.get('/', async(req, res) => {
   res.json(all);
 });
 
+
+router.post('/', async(req, res) => {
+  let {title, description, url, imageUrl, albumId} = req.body
+  let currentUserId = req.user.id
+  const newSong = await Song.create({
+    userId: currentUserId,
+    title: title,
+    description: description,
+    url: url,
+    imageUrl: imageUrl,
+    albumId: albumId
+  }, {});
+  res.json(newSong)
+});
+
 module.exports = router;
