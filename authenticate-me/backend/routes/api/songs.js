@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const { Song } = require('../../db/models');
+const { Song, User, Album } = require('../../db/models');
+const song = require('../../db/models/song');
 
 
 router.get('/', async(req, res) => {
@@ -30,5 +31,23 @@ router.get('/current', requireAuth, async(req, res) => {
   const currentSongs = await Song.findAll({where: {userId: currentUser }});
   res.json(currentSongs);
 });
+
+router.get('/:songId', async(req, res, next) => {
+  let songId = req.params.songId;
+  const song = await Song.findOne({where: {id: songId},
+    include: [{model: User}, {model: Album}]});
+
+  if (song && (song.id.toString() === songId)) {
+
+    res.json(song);
+  } else {
+    const e = new Error("Song couldn't be found");
+    e.status = 404;
+    return next(e);
+  }
+
+
+
+})
 
 module.exports = router;
