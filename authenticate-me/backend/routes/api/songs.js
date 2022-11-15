@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { requireAuth } = require('../../utils/auth');
 const { Song } = require('../../db/models');
 
 
@@ -22,6 +23,12 @@ router.post('/', async(req, res) => {
     albumId: albumId
   }, {});
   res.json(newSong)
+});
+
+router.get('/current', requireAuth, async(req, res) => {
+  let currentUser = req.user.id
+  const currentSongs = await Song.findAll({where: {userId: currentUser }});
+  res.json(currentSongs);
 });
 
 module.exports = router;
