@@ -45,9 +45,27 @@ router.get('/:songId', async(req, res, next) => {
     e.status = 404;
     return next(e);
   }
+});
 
+router.put('/:songId', async (req, res, next) => {
+  let {title, description, url, imageUrl} = req.body;
+  let reqSongId = req.params.songId;
+  let currentSong = await Song.findOne({where:{id: reqSongId}});
 
+  if (currentSong && (currentSong.id.toString() === reqSongId)) {
+    const update = await currentSong.update({
+      title: title,
+      description: description,
+      url: url,
+      imageUrl: imageUrl
+    },{});
+    res.json(update);
 
-})
+  } else {
+    const e = new Error("Song couldn't be found to be updated, no changes were made");
+    e.status = 404;
+    return next(e);
+  }
+});
 
 module.exports = router;
