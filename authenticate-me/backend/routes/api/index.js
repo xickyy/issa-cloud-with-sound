@@ -16,6 +16,8 @@ router.use('/albums', require('./albums.js'));
 
 router.use('/artists', require('./artists'));
 
+router.use('/playlists', require('./playlists'))
+
 // router.post('/test', (req, res) => {
 //   res.json({ requestBody: req.body });
 // });

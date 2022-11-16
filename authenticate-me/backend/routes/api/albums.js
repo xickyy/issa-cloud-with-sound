@@ -41,4 +41,24 @@ router.get('/:albumId', async(req, res, next) => {
   }
 });
 
+router.put('/:albumId', async(req, res, next) => {
+  let {title, description, imageUrl} = req.body;
+  let reqAlbumId = req.params.albumId;
+  let currentAlbum = await Album.findOne({where:{id: reqAlbumId}});
+
+  if (currentAlbum && (currentAlbum.id.toString() === reqAlbumId)) {
+    const update = await currentAlbum.update({
+      title: title,
+      description: description,
+      imageUrl: imageUrl
+    },{});
+    res.json(update);
+
+  } else {
+    const e = new Error("Album couldn't be found to be updated, no changes were made");
+    e.status = 404;
+    return next(e);
+  }
+});
+
 module.exports = router;
