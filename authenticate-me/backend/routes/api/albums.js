@@ -12,6 +12,18 @@ router.post('/', async (req, res) => {
     imageUrl: imageUrl
   }, {});
   res.json(newAlbum);
+});
+
+router.get('/', async (req, res) => {
+  const all = await Album.findAll();
+  res.status(200);
+  res.json(all);
+});
+
+
+router.get('/current', async(req, res) => {
+  const allCurrent = await Album.findAll({where: {userId: req.user.id}});
+  res.json(allCurrent);
 })
 
 module.exports = router;

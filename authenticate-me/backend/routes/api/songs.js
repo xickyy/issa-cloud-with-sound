@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
 const { Song, User, Album } = require('../../db/models');
-const song = require('../../db/models/song');
+
 
 
 router.get('/', async(req, res) => {
