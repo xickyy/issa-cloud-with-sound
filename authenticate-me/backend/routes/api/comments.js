@@ -18,4 +18,17 @@ router.put('/:commentId', async (req, res, next) => {
   }
 });
 
+router.delete('/:commentId', async (req, res, next) => {
+  const commentId = parseInt(req.params.commentId);
+  const comment = await Comment.findOne({ where: {id: commentId}});
+  if(comment && comment.id === commentId) {
+    await comment.destroy();
+    res.json('Comment successfully deleted');
+  } else {
+    const e = new Error('Could not find a comment with the specified id');
+    e.status = 404;
+    return next (e);
+  }
+});
+
 module.exports = router;
