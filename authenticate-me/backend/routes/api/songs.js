@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 
 
 
@@ -63,6 +63,38 @@ router.put('/:songId', async (req, res, next) => {
 
   } else {
     const e = new Error("Song couldn't be found to be updated, no changes were made");
+    e.status = 404;
+    return next(e);
+  }
+});
+
+router.post('/:songId/comments', async (req, res, next) => {
+  let {body} = req.body;
+  let reqId = req.params.songId
+  let song = await Song.findOne({where: {id: reqId}});
+  if(song && (song.id.toString() === reqId)) {
+    const comment = await Comment.create({
+      body: body,
+      songId: parseInt(reqId),
+      userId: req.user.id
+    });
+    res.json(comment);
+  } else {
+    const e = new Error('Could not find a song with the specified Id');
+    e.status = 404;
+    return next(e)
+  }
+});
+
+
+router.get('/:songId/comments', async (req, res, next) => {
+  let reqId = req.params.songId;
+  let song = await Song.findOne({where: {id: reqId}});
+  if(song && song.id.toString() === reqId) {
+    const comments = await Comment.findAll({where: {songId: reqId }});
+    res.json(comments);
+  } else {
+    const e = new Error("No song found with the specified Id");
     e.status = 404;
     return next(e);
   }
