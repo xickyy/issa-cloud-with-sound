@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Song, Album } = require('../../db/models');
+const { User, Song, Album, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -84,6 +84,19 @@ router.get('/:userId/songs', async (req, res, next) =>{
   if(user && user.id === userId) {
     const songs = await Song.findAll({where: {userId: userId}});
     res.json(songs);
+  } else {
+    const e = new Error("Could not find a user with that id");
+    e.status = 404;
+    return next(e);
+  }
+});
+
+router.get('/:userId/playlists', async (req, res, next) => {
+  const userId = parseInt(req.params.userId);
+  const user = await User.findOne({where: {id: userId}});
+  const allPlaylists = await Playlist.findAll({where: {userId: userId}});
+  if (user && (user.id === userId)) {
+    res.json(allPlaylists);
   } else {
     const e = new Error("Could not find a user with that id");
     e.status = 404;
