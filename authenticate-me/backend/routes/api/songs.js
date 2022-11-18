@@ -6,9 +6,31 @@ const { Song, User, Album, Comment } = require('../../db/models');
 
 
 router.get('/', async(req, res) => {
-  const all = await Song.findAll();
-  res.status(200);
-  res.json(all);
+  // const all = await Song.findAll();
+  // res.status(200);
+  // res.json(all);
+  let { page, size } = req.query;
+
+  page = Number.parseInt(page);
+  size = Number.parseInt(size);
+
+  if (Number.isNaN(page) && !(page > 0)) {
+    page = 1;
+  }
+  if (Number.isNaN(size) && !(size > 0)) {
+    size = 4;
+  }
+
+  const songs = await Song.findAll({
+    limit: size,
+    offset: size * (page - 1),
+  });
+
+  return res.json({
+    songs,
+    page,
+    size
+  });
 });
 
 
