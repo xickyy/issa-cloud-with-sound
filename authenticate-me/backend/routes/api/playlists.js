@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Playlist, Song } = require('../../db/models');
+const { Playlist, Song, PlaylistSong} = require('../../db/models');
 
 router.post('/', async (req, res) => {
   let currentUserId = req.user.id
@@ -15,14 +15,18 @@ router.post('/', async (req, res) => {
 
 
 router.post('/:playlistId/songs', async (req, res, next) => {
-  const songId = req.body;
+  const {songId} = req.body;
   const playlistId = parseInt(req.params.playlistId);
-  const song = await Song.findByPk(songId);
+  const song = await Song.findOne({where: {id: songId}});
   const playlist = await Playlist.findByPk(playlistId);
   if((song && song.id === songId) && (playlist && playlist.id === playlistId)) {
-//still need some logic here for the route "add song to playlsit"
+    const addedSong = await PlaylistSong.create({
+      songId: songId,
+      playlistId: playlistId
+    });
+    res.json(addedSong);
   } else {
-    const e = new Error("Either the playlist or the song does not exists witht he specified id's");
+    const e = new Error("Either the playlist or the song does not exist with the specified id's");
   e.status = 404;
   return next(e);
   }

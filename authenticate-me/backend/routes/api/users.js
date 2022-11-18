@@ -33,7 +33,7 @@ router.post('/',
 validateSignup,
   async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
-    const userExists = User.findOne({where: {email}});
+    const userExists = await User.findOne({where: {email}});
     if(userExists){
      const e = new Error('User already exists');
      e.status = 403;
