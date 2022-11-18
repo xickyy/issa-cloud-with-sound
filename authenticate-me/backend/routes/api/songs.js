@@ -100,4 +100,18 @@ router.get('/:songId/comments', async (req, res, next) => {
   }
 });
 
+router.delete('/:songId', async (req, res, next) => {
+  const songId = parseInt(req.params.songId);
+  const song = await Song.findOne({ where: {id: songId}});
+  if(song && song.id === songId) {
+    await song.destroy();
+    res.json('Song successfully deleted');
+  } else {
+    const e = new Error('Could not find a song with the specified id');
+    e.status = 404;
+    return next (e);
+  }
+});
+
+
 module.exports = router;

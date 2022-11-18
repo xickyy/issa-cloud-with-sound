@@ -62,7 +62,7 @@ router.get('/:userId', async (req, res, next) => {
     let songImages = []
     for(let i = 0; i < songs.length; i++) {
       totalSongs++
-      songImages.push(i.imageUrl)
+      songImages.push(songs[i].imageUrl)
     }
     for(let i = 0; i < albums.length; i++) {
       totalAlbums++

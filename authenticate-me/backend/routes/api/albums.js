@@ -61,4 +61,18 @@ router.put('/:albumId', async(req, res, next) => {
   }
 });
 
+
+router.delete('/:albumId', async (req, res, next) => {
+  const albumId = parseInt(req.params.albumId);
+  const album = await Album.findOne({ where: {id: albumId}});
+  if(album && album.id === albumId) {
+    await album.destroy();
+    res.json('album successfully deleted');
+  } else {
+    const e = new Error('Could not find a album with the specified id');
+    e.status = 404;
+    return next (e);
+  }
+});
+
 module.exports = router;

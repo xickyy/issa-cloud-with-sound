@@ -20,12 +20,19 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Song.hasMany(models.Comment, {
-        onDelete: 'cascade'
+        onDelete: 'CASCADE'
       });
 
       Song.belongsToMany(models.Playlist, {
-        through: 'PlaylistSong'
-      })
+        through: models.PlaylistSong,
+        foreignKey: 'songId'
+      });
+
+      Song.hasMany(models.PlaylistSong, {
+        foreignKey: 'songId',
+        onDelete: 'cascade',
+        hooks: true
+      });
     }
   }
   Song.init({

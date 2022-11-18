@@ -21,8 +21,8 @@ router.post('/:playlistId/songs', async (req, res, next) => {
   const playlist = await Playlist.findByPk(playlistId);
   if((song && song.id === songId) && (playlist && playlist.id === playlistId)) {
     const addedSong = await PlaylistSong.create({
-      songId: songId,
-      playlistId: playlistId
+      SongId: songId,
+      PlaylistId: playlistId
     });
     res.json(addedSong);
   } else {
@@ -31,6 +31,35 @@ router.post('/:playlistId/songs', async (req, res, next) => {
   return next(e);
   }
 });
+
+
+router.get('/current', async (req, res, next) => {
+  const user = req.user.id;
+  const playlists = await Playlist.findAll({ where: {userId: user}});
+  res.json(playlists);
+});
+
+router.get('/:playlistId', async (req, res, next) => {
+  console.log('hitting wrong route')
+  const playlistId = parseInt(req.params.playlistId);
+  const playlist = await Playlist.findByPk(playlistId);
+  const songsLink = await PlaylistSong.findAll({where: {playlistId: playlistId}});
+  const songs = [];
+
+  if (playlist && playlist.id === playlistId) {
+    for(let i = 0; i < songsLink.length; i++) {
+      let songId = songsLink[i].songId;
+      let song = await Song.findByPk(songId);
+      songs.push(song);
+    }
+    playlist.dataValues.songs = songs
+    res.json(playlist);
+  } else {
+    const e = new Error("Playlist does not exist with the specified id");
+    e.status = 404;
+    return next(e);
+  }
+})
 
 
 router.put('/:playlistId', async(req, res, next) => {
@@ -49,6 +78,23 @@ router.put('/:playlistId', async(req, res, next) => {
     const e = new Error("Playlist couldn't be found to be updated, no changes were made");
     e.status = 404;
     return next(e);
+  }
+});
+
+
+
+
+
+router.delete('/:playlistId', async (req, res, next) => {
+  const playlistId = parseInt(req.params.playlistId);
+  const playlist = await Playlist.findOne({ where: {id: playlistId}});
+  if(playlist && playlist.id === playlistId) {
+    await playlist.destroy();
+    res.json('Playlist successfully deleted');
+  } else {
+    const e = new Error('Could not find a playlist with the specified id');
+    e.status = 404;
+    return next (e);
   }
 });
 

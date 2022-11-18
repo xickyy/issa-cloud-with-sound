@@ -17,7 +17,11 @@ module.exports = {
         }
       },
       playlistId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Playlists',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
