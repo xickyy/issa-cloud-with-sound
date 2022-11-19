@@ -15,7 +15,7 @@ module.exports = {
     */
    await queryInterface.bulkInsert('Users', [
     {
-      id: 1,
+      // id: 1,
       firstName: 'Guy',
       lastName: 'Freeman',
       imageUrl: "Guy's image",
@@ -24,7 +24,7 @@ module.exports = {
       hashedPassword: bcrypt.hashSync('password')
     },
     {
-      id: 2,
+      // id: 2,
       firstName: 'Faker',
       lastName: 'Mc, Fakey',
       imageUrl: 'Fakers image',
@@ -33,7 +33,7 @@ module.exports = {
       hashedPassword: bcrypt.hashSync('password2')
     },
     {
-      id: 3,
+      // id: 3,
       firstName: 'Sir',
       lastName: 'Codesalot',
       imageUrl: "Sir's image",

@@ -14,7 +14,7 @@ module.exports = {
     */
    await queryInterface.bulkInsert('Songs', [
     {
-      id: 1,
+      // id: 1,
       title: 'Hard work',
       description: 'RIP Juice <3',
       url: 'Hard work url',
@@ -23,7 +23,7 @@ module.exports = {
       albumId: 1
     },
     {
-      id: 2,
+      // id: 2,
       title: 'Humble',
       description: 'Kendrick tha goat',
       url: 'Humble url',
@@ -32,7 +32,7 @@ module.exports = {
       albumId: 2
     },
     {
-      id: 3,
+      // id: 3,
       title: 'Love letter',
       description: 'I wrote this song in a love letter',
       url: 'Love letter url',
@@ -41,7 +41,7 @@ module.exports = {
       albumId: 3
     },
     {
-      id: 4,
+      // id: 4,
       title: 'And to those i love, thanks for sticking around',
       description: 'Take me homeee',
       url: 'And to those i love url',
@@ -50,7 +50,7 @@ module.exports = {
       albumId: 4
     },
     {
-      id: 5,
+      // id: 5,
       title: 'ZaZa',
       description: 'Flexin',
       url: 'ZaZa url',
@@ -59,7 +59,7 @@ module.exports = {
       albumId: 5
     },
     {
-      id: 6,
+      // id: 6,
       title: 'Waves',
       description: 'Im a god',
       url: 'Waves url',
