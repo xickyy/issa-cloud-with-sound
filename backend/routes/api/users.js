@@ -41,7 +41,7 @@ validateSignup,
 
     }
     const user = await User.signup({ email, username, password, firstName, lastName });
-
+    user.dataValues.token = req.cookies.token
     await setTokenCookie(res, user);
 
     return res.json({
