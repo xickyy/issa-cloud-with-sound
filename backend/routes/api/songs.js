@@ -34,18 +34,26 @@ router.get('/', async(req, res) => {
 });
 
 
-router.post('/', async(req, res) => {
+router.post('/', async(req, res, next) => {
   let {title, description, url, imageUrl, albumId} = req.body
   let currentUserId = req.user.id
-  const newSong = await Song.create({
-    userId: currentUserId,
-    title: title,
-    description: description,
-    url: url,
-    imageUrl: imageUrl,
-    albumId: albumId
-  }, {});
-  res.json(newSong)
+  let album = await Album.findByPk(albumId)
+  if (album && (album.id === albumId)) {
+    const newSong = await Song.create({
+      userId: currentUserId,
+      title: title,
+      description: description,
+      url: url,
+      imageUrl: imageUrl,
+      albumId: albumId
+    }, {});
+    res.json(newSong)
+  } else {
+    const e = new Error("Album couldn't be found");
+    e.status = 404;
+    return next(e);
+  }
+
 });
 
 router.get('/current', requireAuth, async(req, res) => {
