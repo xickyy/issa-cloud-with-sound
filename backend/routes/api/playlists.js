@@ -21,8 +21,8 @@ router.post('/:playlistId/songs', async (req, res, next) => {
   const playlist = await Playlist.findByPk(playlistId);
   if((song && song.id === songId) && (playlist && playlist.id === playlistId)) {
     const addedSong = await PlaylistSong.create({
-      SongId: songId,
-      PlaylistId: playlistId
+      songId: songId,
+      playlistId: playlistId
     });
     res.json(addedSong);
   } else {
