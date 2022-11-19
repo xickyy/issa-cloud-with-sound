@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       songId: 2,
-      PlaylistId: 3
+      playlistId: 3
     },
     {
       songId: 3,
