@@ -15,7 +15,7 @@ module.exports = {
    await queryInterface.bulkInsert('PlaylistSongs', [
     {
       songId: 1,
-      PlaylistId: 1
+      playlistId: 1
     },
     {
       songId: 2,
@@ -23,19 +23,19 @@ module.exports = {
     },
     {
       songId: 3,
-      PlaylistId: 4
+      playlistId: 4
     },
     {
       songId: 4,
-      PlaylistId: 2
+      playlistId: 2
     },
     {
       songId: 5,
-      PlaylistId: 5
+      playlistId: 5
     },
     {
       songId: 6,
-      PlaylistId: 6
+      playlistId: 6
     }
    ])
   },
