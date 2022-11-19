@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /me
+  * URL: ? /session
   * Body: none
 
 * Successful Response
@@ -272,7 +272,7 @@ Returns all the songs created by the current user.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /me/songs
+  * URL: ? /songs/current
   * Body: none
 
 * Successful Response
@@ -306,7 +306,7 @@ Returns all the songs created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /artists/:artistId/songs
+  * URL: ? /users/:userId/songs
   * Body: none
 
 * Successful Response
@@ -603,7 +603,7 @@ Returns all the playlists created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /playlists/:artistId
+  * URL: ? /users/:userId/playlists
   * Body: none
 
 * Successful Response
@@ -700,7 +700,7 @@ Add a song to a playlist specified by the playlist's id.
 * Require proper authorization: Playlist must belong to the current user
 * Request
   * Method: ? PUT
-  * URL: ? /playlists/:playlistId
+  * URL: ? /playlists/:playlistId/songs
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -914,7 +914,7 @@ Returns all the playlists created by the current user.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /playlists/me
+  * URL: ? /users/:userId/playlists
   * Body: none
 
 * Successful Response
@@ -995,7 +995,7 @@ Create and return a new comment for a song specified by id.
 * Require Authentication: true
 * Request
   * Method: ? POST
-  * URL: ? /song/:songId/comments
+  * URL: ? /songs/:songId/comments
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1060,7 +1060,7 @@ Update and return an existing comment.
 * Require proper authorization: Comment must belong to the current user
 * Request
   * Method: ? PUT
-  * URL: ? /songs/:songId/comments/:commentId
+  * URL: ? /comments/:commentId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1125,7 +1125,7 @@ Delete an existing comment.
 * Require proper authorization: Comment must belong to the current user
 * Request
   * Method: ? DELETE
-  * URL: ? /songs/:songId/comments/:commentId
+  * URL: ? /comments/:commentId
   * Body: none
 
 * Successful Response
@@ -1195,7 +1195,7 @@ Returns all the Albums created by the current user.
 * Require Authentication: true
 * Request
   * Method: ? GET
-  * URL: ? /albums/me
+  * URL: ? /albums/current
   * Body: none
 
 * Successful Response
@@ -1227,7 +1227,7 @@ Returns all the albums created by the specified artist.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /albums/artists/:artistId
+  * URL: ? /artists/:userId/albums
   * Body: none
 
 * Successful Response
@@ -1492,7 +1492,7 @@ Returns the details of an artist specified by their id.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /artists/:artistId
+  * URL: ? /users/:userId
   * Body: none
 
 * Successful Response
@@ -1531,7 +1531,7 @@ Return songs filtered by query parameters.
 * Require Authentication: false
 * Request
   * Method: ? GET
-  * URL: ? /songs/filters
+  * URL: ? /songs?page=1&size=3
   * Query Parameters
     * page: integer, minimum: 0, maximum: 10, default: 0
     * size: integer, minimum: 0, maximum: 20, default: 20
