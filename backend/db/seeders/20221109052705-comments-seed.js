@@ -3,6 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'Comments'
     /**
      * Add seed commands here.
      *
@@ -12,7 +13,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('Comments', [
+   await queryInterface.bulkInsert(options, [
     {
       // id: 1,
       body: 'This song is awesome!',
@@ -52,12 +53,13 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'Comments'
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('Comments', null, {});
+     await queryInterface.bulkDelete(options, null, {});
   }
 };

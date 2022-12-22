@@ -3,6 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'PlaylistSongs'
     /**
      * Add seed commands here.
      *
@@ -12,7 +13,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('PlaylistSongs', [
+   await queryInterface.bulkInsert(options, [
     {
       songId: 1,
       playlistId: 1
@@ -41,12 +42,13 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    options.tableName = 'PlaylistSongs'
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('PlaylistSongs', null, {});
+     await queryInterface.bulkDelete(options, null, {});
   }
 };
