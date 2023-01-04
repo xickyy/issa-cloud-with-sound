@@ -1,29 +1,45 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { createSong } from '../../store/songs';
+import { useDispatch, useSelector } from 'react-redux';
+import { createSong, newSong } from '../../store/songs';
+import { getAlbums } from '../../store/albums';
 
-const SongForm = ({ song, formType }) => {
+const SongForm = () => {
   const history = useHistory();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [albumId, setAlbumId] = useState(song.albumId)
+  const [albumId, setAlbumId] = useState('Please select an album')
   const dispatch = useDispatch();
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    song = { ...song, title, description, url, imageUrl, albumId };
-    dispatch(createSong(song))
-    history.push(`/songs/${song.id}`)
+    const song = await dispatch(newSong(title, description, url, imageUrl, albumId));
+    console.log('hit new song', song)
+    if (song) {
+        history.push(`/songs/${song.id}`)
+    }
+
   };
+
+
+  useEffect(() => {
+    let fetchALBUMS = async () => {
+      await dispatch(getAlbums())
+    }
+    fetchALBUMS()
+  },[dispatch])
+
+
+  const ALBUMS = useSelector(state => state.albums.albums)
+
 
 
   return (
     <form onSubmit={handleSubmit} >
-      <h2>{formType}</h2>
+      <h2>Add a Song</h2>
 
       <label>
         Title
@@ -61,20 +77,22 @@ const SongForm = ({ song, formType }) => {
       </label>
 
       <label>
-        Select an album
+        Album
         <select value={albumId} onChange={e => setAlbumId(e.target.value)}>
-          {ALBUMS.map(album => (
+          <option disabled>{'Please select an album'}</option>
+          {ALBUMS && ALBUMS.map(album => (
             <option
-              key={albumId}
+              key={album.id}
+              value={album.id}
             >
-              {albumId}
+              {album.title}
             </option>
           ))}
         </select>
 
       </label>
 
-      <input type="submit" value={formType} />
+      <input type="submit"  />
     </form>
   )
 }

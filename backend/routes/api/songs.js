@@ -38,7 +38,7 @@ router.post('/', async(req, res, next) => {
   let {title, description, url, imageUrl, albumId} = req.body
   let currentUserId = req.user.id
   let album = await Album.findByPk(albumId)
-  if (album && (album.id === albumId)) {
+  if (album && (album.id == albumId)) {
     const newSong = await Song.create({
       userId: currentUserId,
       title: title,

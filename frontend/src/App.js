@@ -27,7 +27,7 @@ function App() {
             <SignupFormPage />
           </Route>
 
-          <Route path="/songs">
+          <Route path="/createSongs">
             <SongForm />
           </Route>
         </Switch>

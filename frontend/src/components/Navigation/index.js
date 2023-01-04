@@ -10,14 +10,18 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
+      < >
+      <NavLink to="/createSongs">Create Songs</NavLink>
       <ProfileButton user={sessionUser} />
+      </>
+
     );
   } else {
     sessionLinks = (
       <>
         <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/songs">Songs</NavLink>
+
       </>
     );
   }
