@@ -12,7 +12,7 @@ const CreateSong = () => {
   };
 
   return (
-    <SongForm song={song} formType="Create Song" />
+    <SongForm song={song} />
   );
 }
 

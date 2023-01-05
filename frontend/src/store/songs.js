@@ -2,6 +2,7 @@ import {csrfFetch} from './csrf'
 
 const ADD_SONG = 'songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
+const SET_SONGS = 'songs/SET_SONGS'
 
 
 export const createSong = (payload) => {
@@ -19,6 +20,12 @@ export const deleteSong = (id) => {
 }
 
 
+export const setSongs = (payload) => {
+  return {
+    type: SET_SONGS,
+    payload
+  }
+}
 
 
 const initialState = () => {
@@ -49,6 +56,19 @@ export const newSong = (title, description, url, imageUrl, albumId) => async (di
 }
 
 
+export const getSongs = (page) => async (dispatch) => {
+  let response
+  if (page) {
+    response = await csrfFetch(`/api/songs?page=${page}`)
+  } else {
+    response = await csrfFetch(`/api/songs`)
+  }
+  if (response.ok) {
+    const songs = await response.json()
+    dispatch(setSongs(songs))
+  }
+  return response.ok
+}
 
 
 
@@ -61,6 +81,10 @@ const songReducer = (state = initialState(), action) => {
 
     case DELETE_SONG:
       delete newState[action.id]
+      return newState;
+
+    case SET_SONGS:
+      newState.songs = action.payload
       return newState;
 
     default:

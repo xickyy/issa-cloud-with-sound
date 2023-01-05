@@ -13,6 +13,7 @@ function Navigation({ isLoaded }){
       < >
       <NavLink to="/createSongs">Create Songs</NavLink>
       <ProfileButton user={sessionUser} />
+      <NavLink to="/songs">Songs</NavLink>
       </>
 
     );
@@ -21,6 +22,7 @@ function Navigation({ isLoaded }){
       <>
         <NavLink to="/login">Log In</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/songs">Songs</NavLink>
 
       </>
     );
