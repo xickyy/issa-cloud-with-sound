@@ -14,6 +14,7 @@ const ShowSongs = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [page, setPage] = useState(1)
 
+
   useEffect(() => {
     let fetchSONGS = async () => {
       await dispatch(getSongs(page)).then(() => setIsLoaded(true));
@@ -27,15 +28,16 @@ const ShowSongs = () => {
     SONGS = songsState.songs.songs
   }
 
-const handlePagePlus = () => {
-  setPage(page + 1)
-}
 
-const handlePageMinus = () => {
-  if(page !== 1) {
-    setPage(page - 1)
+  const handlePagePlus = () => {
+    setPage(page + 1);
   }
-}
+
+  const handlePageMinus = () => {
+    if (page !== 1) {
+      setPage(page - 1);
+    }
+  }
 
 
   return (
@@ -47,8 +49,9 @@ const handlePageMinus = () => {
           <Link key={song.id} to={`/songs/${song.id}`}>{'Song Details'}</Link>
 
         </div>))}
-        <button onClick={() => handlePageMinus()}>Previous Page</button>
-        <button onClick={() => handlePagePlus()}>Next Page</button>
+      <button onClick={() => handlePageMinus()}>Previous Page</button>
+      <div>Page:{page}</div>
+      <button onClick={() => handlePagePlus()}>Next Page</button>
     </div>
   );
 

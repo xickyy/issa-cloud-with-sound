@@ -2,37 +2,42 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { getSongs } from '../../store/songs';
+import { getSongs, getSongData } from '../../store/songs';
+import SongForm from '../SongForm';
 
 
 const ShowOneSong = () => {
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const { songId } = useParams();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let fetchSONGS = async () => {
-      await dispatch(getSongs())
+    let fetchDATA = async (songId) => {
+      await dispatch(getSongData(songId)).then(() => setIsLoaded(true));
     }
-    fetchSONGS()
+    fetchDATA(songId)
   }, [dispatch])
 
   let songsState = useSelector(state => state.songs)
-  let selectedSong
-  if (songsState.songs) {
-    let SONGS = Object.values(songsState.songs.songs)
-    selectedSong = SONGS.find(song => parseInt(songId) === song.id)
+  let SONG
+  if (isLoaded) {
+   SONG = (songsState.songs)
   }
-  console.log(selectedSong);
+
+
 
 
   return (
-    <div>{selectedSong && (
+    <div>{SONG && (
       <div>
-        <h2>{selectedSong.title}</h2>
-        <div>By: Artist Name</div>
-        <div>Description: {selectedSong.description}</div>
-        <div>{selectedSong.imageUrl}</div>
+        <h2>{SONG.title}</h2>
+        <div>By: {SONG.User.username}</div>
+        <div>Description: {SONG.description} {}</div>
+        <div>Album: {SONG.Album.title}</div>
+        <div>Image: {SONG.imageUrl}</div>
         <div>
           <button>Edit Song</button>
           <button>Delete Song</button>

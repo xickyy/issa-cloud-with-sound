@@ -1,8 +1,10 @@
 import {csrfFetch} from './csrf'
+import { useParams } from 'react-router-dom'
 
 const ADD_SONG = 'songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
 const SET_SONGS = 'songs/SET_SONGS'
+const SONG_DETAILS = 'songs/SONG_DETAILS'
 
 
 export const createSong = (payload) => {
@@ -27,6 +29,13 @@ export const setSongs = (payload) => {
   }
 }
 
+export const setDetails = (payload) => {
+  return {
+    type: SONG_DETAILS,
+    payload
+  }
+}
+
 
 const initialState = () => {
   const songsObj = {};
@@ -35,7 +44,6 @@ const initialState = () => {
 
 
 export const newSong = (title, description, url, imageUrl, albumId) => async (dispatch) => {
-  console.log('initiating thunk')
   const response = await csrfFetch('/api/songs', {
     method: "POST",
     body: JSON.stringify({
@@ -48,7 +56,6 @@ export const newSong = (title, description, url, imageUrl, albumId) => async (di
   })
   if (response.ok) {
     const song = await response.json()
-    console.log('hit backend', dispatch)
     dispatch(createSong(song))
     return song
   }
@@ -72,6 +79,21 @@ export const getSongs = (page) => async (dispatch) => {
 
 
 
+export const getSongData = (id) => async (dispatch) => {
+  let response = await csrfFetch(`/api/songs/${id}`)
+
+  if (response.ok) {
+    const songData = await response.json()
+    dispatch(setDetails(songData))
+  }
+  return response.ok
+}
+
+
+
+
+
+
 const songReducer = (state = initialState(), action) => {
   const newState = {...state}
   switch (action.type) {
@@ -86,6 +108,10 @@ const songReducer = (state = initialState(), action) => {
     case SET_SONGS:
       newState.songs = action.payload
       return newState;
+
+    case SONG_DETAILS:
+      newState.songs = action.payload
+      return newState
 
     default:
       return state
