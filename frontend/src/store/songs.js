@@ -38,7 +38,7 @@ export const setDetails = (payload) => {
 
 
 const initialState = () => {
-  const songsObj = {};
+  const songsObj = {page: 1, songs: {}};
   return songsObj
 }
 
@@ -77,6 +77,25 @@ export const getSongs = (page) => async (dispatch) => {
   return response.ok
 }
 
+export const editSong = (id, title, description, url, imageUrl, albumId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/songs/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      title,
+      description,
+      url,
+      imageUrl,
+      albumId
+    })
+  })
+  if (response.ok) {
+    const song = await response.json()
+    dispatch(createSong(song))
+    return song
+  }
+  return response
+}
+
 
 
 export const getSongData = (id) => async (dispatch) => {
@@ -106,7 +125,11 @@ const songReducer = (state = initialState(), action) => {
       return newState;
 
     case SET_SONGS:
-      newState.songs = action.payload
+      delete newState.songs
+      newState.songs = {}
+      console.log('hellloooo',action.payload)
+      action.payload.songs.forEach(song => newState.songs[song.id] = song)
+      newState.page = action.payload.page
       return newState;
 
     case SONG_DETAILS:

@@ -25,11 +25,11 @@ function App() {
             <LoginFormPage />
           </Route>
 
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
 
-          <Route path="/createSongs">
+          <Route exact path="/createSongs">
             <SongForm />
           </Route>
 
@@ -37,8 +37,12 @@ function App() {
             <SongShow />
           </Route>
 
-          <Route path='/songs/:songId'>
+          <Route exact path='/songs/:songId'>
             <ShowOneSong />
+          </Route>
+
+          <Route exact path='/songs/:songId/edit'>
+            <SongForm />
           </Route>
         </Switch>
       )}

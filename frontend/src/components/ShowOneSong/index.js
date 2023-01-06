@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { getSongs, getSongData } from '../../store/songs';
-import SongForm from '../SongForm';
+import { getSongData } from '../../store/songs';
+import { editSong } from '../../store/songs';
 
 
 const ShowOneSong = () => {
+  const history = useHistory();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -27,6 +28,10 @@ const ShowOneSong = () => {
    SONG = (songsState.songs)
   }
 
+  const editHandler = () => {
+    editSong(songId)
+  }
+
 
 
 
@@ -35,11 +40,12 @@ const ShowOneSong = () => {
       <div>
         <h2>{SONG.title}</h2>
         <div>By: {SONG.User.username}</div>
-        <div>Description: {SONG.description} {}</div>
-        <div>Album: {SONG.Album.title}</div>
-        <div>Image: {SONG.imageUrl}</div>
+        <div>Song Description: {SONG.description} {}</div>
+        <div>Album Title: {SONG.Album.title}</div>
+        <div>Album Description: {SONG.Album.description} {}</div>
+        <div>Album Image: {SONG.imageUrl}</div>
         <div>
-          <button>Edit Song</button>
+          <button onClick={() => {history.push(`/songs/${songId}/edit`)}}>Edit Song</button>
           <button>Delete Song</button>
         </div>
       </div>

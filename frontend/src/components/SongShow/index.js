@@ -25,7 +25,7 @@ const ShowSongs = () => {
   let songsState = useSelector(state => state.songs)
   let SONGS
   if (isLoaded) {
-    SONGS = songsState.songs.songs
+    SONGS = Object.values(songsState.songs)
   }
 
 

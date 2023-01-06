@@ -3,10 +3,16 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSong, newSong } from '../../store/songs';
 import { getAlbums } from '../../store/albums';
+import { editSong } from '../../store/songs';
+import { useParams } from 'react-router-dom';
 
 const SongForm = () => {
+  const {songId} = useParams();
+  const songs = useSelector((state) => state.songs)
+  const song = songs[songId];
+  console.log('hello', song)
   const history = useHistory();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(song?.title || '');
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -15,14 +21,22 @@ const SongForm = () => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const song = await dispatch(newSong(title, description, url, imageUrl, albumId));
-    console.log('hit new song', song)
-    if (song) {
-        history.push(`/songs/${song.id}`)
+    if(songId) {
+      e.preventDefault();
+      const songEdit = await dispatch(editSong(songId, title, description, url, imageUrl, albumId));
+      if (songEdit) {
+        history.push(`/songs/${songEdit.id}`)
+      }
+    } else {
+      e.preventDefault();
+      const song = await dispatch(newSong(title, description, url, imageUrl, albumId));
+      if (song) {
+          history.push(`/songs/${song.id}`)
+      }
     }
 
   };
+
 
 
   useEffect(() => {
