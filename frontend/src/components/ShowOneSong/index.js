@@ -25,17 +25,31 @@ const ShowOneSong = () => {
 
   let songsState = useSelector(state => state.songs)
   let commentsState = useSelector(state => state.comments)
+  let userState = useSelector(state => state.session)
   let SONG
   let COMMENTS
   if (isLoaded) {
     SONG = (songsState.songs)
     COMMENTS = Object.values(commentsState.comments)
   }
-  console.log('comments array', COMMENTS)
+
+
 
   const deleter = () => {
     dispatch(deleteSongById(songId))
     history.push("/songs")
+  }
+
+  const userEditSong = () => {
+    if(userState.user && userState.user.id === SONG.userId){
+      return <button onClick={() => { history.push(`/songs/${songId}/edit`) }}>Edit Song</button>
+    }
+  }
+
+  const userDeleteSong = () => {
+    if(userState.user && userState.user.id === SONG.userId) {
+      return <button onClick={() => { deleter() }}>Delete Song</button>
+    }
   }
 
 
@@ -52,15 +66,15 @@ const ShowOneSong = () => {
         <div>Album Description: {SONG.Album.description} { }</div>
         <div>Album Image: {SONG.imageUrl}</div>
         <div>
-          <button onClick={() => { history.push(`/songs/${songId}/edit`) }}>Edit Song</button>
-          <button onClick={() => { deleter() }}>Delete Song</button>
+          {userEditSong()}
+          {userDeleteSong()}
         </div>
         <div>
           <h3>Comments-</h3>
           <button>Create Comment</button>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
-              <div>
+              <div key={comment.id}>
                 <div>{comment.body}</div>
                 <button>Edit Comment</button>
                 <button>Delete Comment</button>
