@@ -1,7 +1,7 @@
 import './Songs.css';
 
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSongs } from '../../store/songs';
 
@@ -16,10 +16,8 @@ const ShowSongs = () => {
 
 
   useEffect(() => {
-    let fetchSONGS = async () => {
-      await dispatch(getSongs(page)).then(() => setIsLoaded(true));
-    }
-    fetchSONGS()
+    dispatch(getSongs(page)).then(() => setIsLoaded(true));
+
   }, [dispatch, page])
 
   let songsState = useSelector(state => state.songs)

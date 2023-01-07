@@ -1,5 +1,5 @@
-import {csrfFetch} from './csrf'
-import { useParams } from 'react-router-dom'
+import { csrfFetch } from './csrf'
+
 
 const ADD_SONG = 'songs/ADD_SONG'
 const DELETE_SONG = 'songs/DELETE_SONG'
@@ -38,7 +38,7 @@ export const setDetails = (payload) => {
 
 
 const initialState = () => {
-  const songsObj = {page: 1, songs: {}};
+  const songsObj = { page: 1, songs: {} };
   return songsObj
 }
 
@@ -99,7 +99,8 @@ export const editSong = (id, title, description, url, imageUrl, albumId) => asyn
 
 
 export const getSongData = (id) => async (dispatch) => {
-  let response = await csrfFetch(`/api/songs/${id}`)
+  let response = await csrfFetch(`/api/songs/${id}`
+  )
 
   if (response.ok) {
     const songData = await response.json()
@@ -108,13 +109,23 @@ export const getSongData = (id) => async (dispatch) => {
   return response.ok
 }
 
+export const deleteSongById = (id) => async (dispatch) => {
+  let response = await csrfFetch(`/api/songs/${id}`, {
+    method: "DELETE"
+  })
+
+  if (response.ok) {
+    dispatch(deleteSong(id))
+  }
+}
+
 
 
 
 
 
 const songReducer = (state = initialState(), action) => {
-  const newState = {...state}
+  const newState = { ...state }
   switch (action.type) {
     case ADD_SONG:
       newState[action.payload.id] = action.payload
@@ -127,7 +138,6 @@ const songReducer = (state = initialState(), action) => {
     case SET_SONGS:
       delete newState.songs
       newState.songs = {}
-      console.log('hellloooo',action.payload)
       action.payload.songs.forEach(song => newState.songs[song.id] = song)
       newState.page = action.payload.page
       return newState;

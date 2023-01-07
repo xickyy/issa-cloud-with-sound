@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import SongForm from "./components/SongForm";
 import SongShow from "./components/SongShow";
 import ShowOneSong from "./components/ShowOneSong";
+import { getSongs } from "./store/songs";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +44,7 @@ function App() {
           </Route>
 
           <Route exact path='/songs/:songId/edit'>
-            <SongForm />
+            <SongForm songs={getSongs()}/>
           </Route>
         </Switch>
       )}
