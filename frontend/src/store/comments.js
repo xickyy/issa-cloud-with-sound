@@ -1,5 +1,4 @@
 import { csrfFetch } from './csrf'
-import CreateComment from '../components/CreateComment'
 
 const SET_COMMENTS = 'comments/SET_COMMENTS'
 const ADD_COMMENT = 'comments/ADD_COMMENTS'
@@ -31,9 +30,9 @@ export const getComments = (id) => async (dispatch) => {
 export const newComment = (id, body) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${id}/comments`, {
     method: "POST",
-    body: JSON.stringify({
+    body: JSON.stringify(
       body
-    })
+    )
   })
   if (response.ok) {
     const comment = await response.json()
