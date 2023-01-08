@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { getSongData } from '../../store/songs';
 import { deleteSongById } from '../../store/songs';
 import { getComments } from '../../store/comments';
+import CommentInput from '../CommentInput';
 
 
 
@@ -71,6 +72,7 @@ const ShowOneSong = () => {
         </div>
         <div>
           <h3>Comments-</h3>
+          <div>{<CommentInput />}</div>
           <button>Create Comment</button>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
