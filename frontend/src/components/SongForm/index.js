@@ -14,11 +14,11 @@ const SongForm = () => {
   const {songId} = useParams();
   const songs = useSelector((state) => state.songs.songs)
   const history = useHistory();
-  const [title, setTitle] = useState(songId && songs?.title || '');
-  const [description, setDescription] = useState(songId && songs?.description || '');
-  const [url, setUrl] = useState(songId && songs?.url || '');
-  const [imageUrl, setImageUrl] = useState(songId && songs?.imageUrl || '');
-  const [albumId, setAlbumId] = useState(songId && songs?.albumId || 'Please select an album')
+  const [title, setTitle] = useState((songId && songs?.title) || '');
+  const [description, setDescription] = useState((songId && songs?.description) || '');
+  const [url, setUrl] = useState((songId && songs?.url) || '');
+  const [imageUrl, setImageUrl] = useState((songId && songs?.imageUrl) || '');
+  const [albumId, setAlbumId] = useState((songId && songs?.albumId) || 'Please select an album')
   const dispatch = useDispatch();
 
 
@@ -55,7 +55,7 @@ const SongForm = () => {
     }
     fetchSONGS()
 
-  },[dispatch])
+  },[dispatch, songId])
 
 
   const ALBUMS = useSelector(state => state.albums.albums)
