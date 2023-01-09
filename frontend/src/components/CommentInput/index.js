@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newComment } from "../../store/comments";
 import { useParams, useHistory } from "react-router-dom";
+import { getComments } from "../../store/comments";
 
 
 const CommentInput = () => {
@@ -11,15 +12,17 @@ const CommentInput = () => {
   const [comment, setComment] = useState('')
   const dispatch = useDispatch()
   const history = useHistory();
-  const {songId} = useParams();
+  const { songId } = useParams();
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      const comment = await dispatch(newComment(songId, comment));
-      if (comment) {
-        history.push(`/songs/${comment.songId}`)
-      }
+    e.preventDefault();
+    const commentobj = await dispatch(newComment(songId, comment));
+    if (commentobj) {
+      history.push(`/songs/${commentobj.songId}`)
+      setComment('')
+      dispatch(getComments(songId))
     }
+  }
 
 
   return (
@@ -31,7 +34,7 @@ const CommentInput = () => {
           onChange={(e) => setComment(e.target.value)}
         />
       </label>
-      <input type="submit" />
+      <button>Submit</button>
     </form>
   )
 }

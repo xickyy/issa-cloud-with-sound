@@ -111,7 +111,7 @@ const SongForm = () => {
 
         </label>
 
-        <input type="submit"  />
+        <button type='submit'>Submit</button>
       </form>
     )
   }

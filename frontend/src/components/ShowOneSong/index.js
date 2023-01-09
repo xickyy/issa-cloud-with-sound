@@ -73,7 +73,6 @@ const ShowOneSong = () => {
         <div>
           <h3>Comments-</h3>
           <div>{<CommentInput />}</div>
-          <button>Create Comment</button>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
               <div key={comment.id}>
