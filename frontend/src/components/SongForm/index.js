@@ -14,11 +14,11 @@ const SongForm = () => {
   const {songId} = useParams();
   const songs = useSelector((state) => state.songs.songs)
   const history = useHistory();
-  const [title, setTitle] = useState(songs?.title || '');
-  const [description, setDescription] = useState(songs?.description || '');
-  const [url, setUrl] = useState(songs?.url || '');
-  const [imageUrl, setImageUrl] = useState(songs?.imageUrl || '');
-  const [albumId, setAlbumId] = useState(songs?.albumId || 'Please select an album')
+  const [title, setTitle] = useState(songId && songs?.title || '');
+  const [description, setDescription] = useState(songId && songs?.description || '');
+  const [url, setUrl] = useState(songId && songs?.url || '');
+  const [imageUrl, setImageUrl] = useState(songId && songs?.imageUrl || '');
+  const [albumId, setAlbumId] = useState(songId && songs?.albumId || 'Please select an album')
   const dispatch = useDispatch();
 
 
@@ -30,6 +30,7 @@ const SongForm = () => {
         history.push(`/songs/${songEdit.id}`)
       }
     } else {
+      console.log('hello')
       e.preventDefault();
       const song = await dispatch(newSong(title, description, url, imageUrl, albumId));
       if (song) {
@@ -46,7 +47,13 @@ const SongForm = () => {
       await dispatch(getAlbums())
     }
     fetchALBUMS()
-    dispatch(getSongData(songId))
+
+    let fetchSONGS = async () => {
+      if(songId) {
+        await dispatch(getSongData(songId))
+      }
+    }
+    fetchSONGS()
 
   },[dispatch])
 
