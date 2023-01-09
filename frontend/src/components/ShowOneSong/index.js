@@ -6,6 +6,7 @@ import { getSongData } from '../../store/songs';
 import { deleteSongById } from '../../store/songs';
 import { getComments } from '../../store/comments';
 import CommentInput from '../CommentInput';
+import { deleteCommentById } from '../../store/comments';
 
 
 
@@ -36,9 +37,13 @@ const ShowOneSong = () => {
 
 
 
-  const deleter = () => {
+  const songDeleter = () => {
     dispatch(deleteSongById(songId))
     history.push("/songs")
+  }
+
+  const commentDeleter = (id) => {
+    dispatch(deleteCommentById(id))
   }
 
   const userEditSong = () => {
@@ -49,9 +54,21 @@ const ShowOneSong = () => {
 
   const userDeleteSong = () => {
     if(userState.user && userState.user.id === SONG.userId) {
-      return <button onClick={() => { deleter() }}>Delete Song</button>
+      return <button onClick={() => { songDeleter() }}>Delete Song</button>
     }
   }
+
+  const reloadComments = async () => {
+    dispatch(getComments(songId))
+  }
+
+  const userDeleteComment = (userId, commentId) => {
+    if(userState.user && userState.user.id === userId) {
+      return <button onClick={() => { commentDeleter(commentId) }}>Delete Comment</button>
+      reloadComments()
+    }
+  }
+
 
 
 
@@ -78,7 +95,7 @@ const ShowOneSong = () => {
               <div key={comment.id}>
                 <div>{comment.body}</div>
                 <button>Edit Comment</button>
-                <button>Delete Comment</button>
+                {userDeleteComment(comment.userId, comment.id)}
               </div>
             )
           })}</div>
