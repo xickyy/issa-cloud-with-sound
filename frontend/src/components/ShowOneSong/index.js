@@ -68,7 +68,7 @@ const ShowOneSong = () => {
           <div>{<CommentInput />}</div>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
-              <div key={comment.id}>{<DisplayComment comment={comment}/>}</div>
+              <div key={comment.id}>{<DisplayComment comment={comment} SONG ={SONG}/>}</div>
             )
           })}</div>
         </div>
