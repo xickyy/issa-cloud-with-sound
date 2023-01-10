@@ -61,6 +61,21 @@ export const deleteCommentById = (id) => async (dispatch) => {
   }
 }
 
+export const editComment = (id, body) => async (dispatch) => {
+  const response = await csrfFetch(`/api/comments/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      body
+    })
+  })
+  if (response.ok) {
+    const comment = await response.json()
+    dispatch(createComment(comment))
+    return comment
+  }
+  return response
+}
+
 const initialState = () => {
   const commentsObj = {};
   return commentsObj
