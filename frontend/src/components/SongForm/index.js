@@ -11,7 +11,7 @@ import { getSongData } from '../../store/songs';
 
 
 const SongForm = () => {
-  const {songId} = useParams();
+  const { songId } = useParams();
   const songs = useSelector((state) => state.songs.songs)
   const history = useHistory();
   const [title, setTitle] = useState((songId && songs?.title) || '');
@@ -19,22 +19,32 @@ const SongForm = () => {
   const [url, setUrl] = useState((songId && songs?.url) || '');
   const [imageUrl, setImageUrl] = useState((songId && songs?.imageUrl) || '');
   const [albumId, setAlbumId] = useState((songId && songs?.albumId) || 'Please select an album')
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
 
 
   const handleSubmit = async (e) => {
-    if(songId) {
+    if (songId) {
+      setErrors([]);
       e.preventDefault();
-      const songEdit = await dispatch(editSong(songId, title, description, url, imageUrl, albumId));
+      const songEdit = await dispatch(editSong(songId, title, description, url, imageUrl, albumId))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
       if (songEdit) {
         history.push(`/songs/${songEdit.id}`)
       }
     } else {
-      console.log('hello')
+      setErrors([]);
       e.preventDefault();
-      const song = await dispatch(newSong(title, description, url, imageUrl, albumId));
+      const song = await dispatch(newSong(title, description, url, imageUrl, albumId))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
       if (song) {
-          history.push(`/songs/${song.id}`)
+        history.push(`/songs/${song.id}`)
       }
     }
 
@@ -49,13 +59,13 @@ const SongForm = () => {
     fetchALBUMS()
 
     let fetchSONGS = async () => {
-      if(songId) {
+      if (songId) {
         await dispatch(getSongData(songId))
       }
     }
     fetchSONGS()
 
-  },[dispatch, songId])
+  }, [dispatch, songId])
 
 
   const ALBUMS = useSelector(state => state.albums.albums)
@@ -63,65 +73,68 @@ const SongForm = () => {
 
 
 
-    return (
-      <form onSubmit={handleSubmit} >
-        <h2>Add a Song</h2>
+  return (
+    <form onSubmit={handleSubmit} >
+      <ul>
+        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+      </ul>
+      <h2>Add a Song</h2>
 
-        <label>
-          Title
-          <input
-            type="text"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-          />
-        </label>
+      <label>
+        Title
+        <input
+          type="text"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+      </label>
 
-        <label>
-          Description
-          <textarea
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-          />
-        </label>
+      <label>
+        Description
+        <textarea
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+        />
+      </label>
 
-        <label>
-          Url
-          <input
-            type="text"
-            value={url}
-            onChange={e => setUrl(e.target.value)}
-          />
-        </label>
+      <label>
+        Url
+        <input
+          type="text"
+          value={url}
+          onChange={e => setUrl(e.target.value)}
+        />
+      </label>
 
-        <label>
-          Image Url
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={e => setImageUrl(e.target.value)}
-          />
-        </label>
+      <label>
+        Image Url
+        <input
+          type="text"
+          value={imageUrl}
+          onChange={e => setImageUrl(e.target.value)}
+        />
+      </label>
 
-        <label>
-          Album
-          <select value={albumId} onChange={e => setAlbumId(e.target.value)}>
-            <option disabled>{'Please select an album'}</option>
-            {ALBUMS && ALBUMS.map(album => (
-              <option
-                key={album.id}
-                value={album.id}
-              >
-                {album.title}
-              </option>
-            ))}
-          </select>
+      <label>
+        Album
+        <select value={albumId} onChange={e => setAlbumId(e.target.value)}>
+          <option disabled>{'Please select an album'}</option>
+          {ALBUMS && ALBUMS.map(album => (
+            <option
+              key={album.id}
+              value={album.id}
+            >
+              {album.title}
+            </option>
+          ))}
+        </select>
 
-        </label>
+      </label>
 
-        <button type='submit'>Submit</button>
-      </form>
-    )
-  }
+      <button type='submit'>Submit</button>
+    </form>
+  )
+}
 
 
 export default SongForm;

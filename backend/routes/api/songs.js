@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
 const { Song, User, Album, Comment } = require('../../db/models');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 
 
@@ -33,8 +35,28 @@ router.get('/', async(req, res) => {
   });
 });
 
+const validatesong = [
+  check('title')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a valid Title'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a description.'),
+    check('url')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a Url.'),
+    check('imageUrl')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a image Url.'),
+    check('albumId')
+    .exists()
+    .isInt()
+    .withMessage('Please select and album.'),
+  handleValidationErrors
+];
 
-router.post('/', async(req, res, next) => {
+
+router.post('/', validatesong, async(req, res, next) => {
   let {title, description, url, imageUrl, albumId} = req.body
   let currentUserId = req.user.id
   let album = await Album.findByPk(albumId)
@@ -77,7 +99,7 @@ router.get('/:songId', async(req, res, next) => {
   }
 });
 
-router.put('/:songId', async (req, res, next) => {
+router.put('/:songId', validatesong, async (req, res, next) => {
   let {title, description, url, imageUrl} = req.body;
   let reqSongId = req.params.songId;
   let currentSong = await Song.findOne({where:{id: reqSongId}});
