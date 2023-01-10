@@ -55,6 +55,13 @@ const validatesong = [
   handleValidationErrors
 ];
 
+const validateComment = [
+  check('body')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a valid comment'),
+  handleValidationErrors
+];
+
 
 router.post('/', validatesong, async(req, res, next) => {
   let {title, description, url, imageUrl, albumId} = req.body
@@ -120,7 +127,7 @@ router.put('/:songId', validatesong, async (req, res, next) => {
   }
 });
 
-router.post('/:songId/comments', async (req, res, next) => {
+router.post('/:songId/comments', validateComment, async (req, res, next) => {
   let {body} = req.body;
   let reqId = req.params.songId
   let song = await Song.findOne({where: {id: reqId}});
