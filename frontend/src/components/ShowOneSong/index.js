@@ -6,21 +6,13 @@ import { getSongData } from '../../store/songs';
 import { deleteSongById } from '../../store/songs';
 import { getComments } from '../../store/comments';
 import CommentInput from '../CommentInput';
-import { deleteCommentById } from '../../store/comments';
-import { editComment } from '../../store/comments';
-
+import DisplayComment from '../DisplayComment';
 
 
 const ShowOneSong = () => {
   const history = useHistory();
-  const comments = useSelector((state) => state.comments)
   const [isLoaded, setIsLoaded] = useState(false);
-  const [commentBody, setCommentBody] = useState('')
-  const [commentBoolean, setCommentBoolean] = useState(false)
-  console.log(comments)
-
   const { songId } = useParams();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,25 +31,12 @@ const ShowOneSong = () => {
     COMMENTS = Object.values(commentsState.comments)
   }
 
-  const handleSubmit = async (e) => {
-    booleanChanger()
-      e.preventDefault();
-      const commentEdit = await dispatch(editComment());
-      if (commentEdit) {
-        history.push(`/songs/${commentEdit.id}`)
-      }
-    }
-
-
 
   const songDeleter = () => {
     dispatch(deleteSongById(songId))
     history.push("/songs")
   }
 
-  const commentDeleter = (id) => {
-    dispatch(deleteCommentById(id))
-  }
 
   const userEditSong = () => {
     if(userState.user && userState.user.id === SONG.userId){
@@ -70,44 +49,6 @@ const ShowOneSong = () => {
       return <button onClick={() => { songDeleter() }}>Delete Song</button>
     }
   }
-
-
-  const userDeleteComment = (userId, commentId) => {
-    if(userState.user && userState.user.id === userId) {
-      return <button onClick={() => { commentDeleter(commentId) }}>Delete Comment</button>
-    }
-  }
-
-  const booleanChanger = () => {
-    if(commentBoolean) {
-      setCommentBoolean(false)
-    } else {
-      setCommentBoolean(true)
-    }
-  }
-
-
-  const commentEditor = (id, key, body) => {
-    if (commentBoolean && id === key ) {
-      return (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Edit Comment
-            <textarea
-              value={body}
-              onChange={(e) => setCommentBody(e.target.value)}
-            />
-          </label>
-          <button>Submit</button>
-        </form>
-      )
-    }
-  }
-
-
-
-
-
 
   return (
     <div>{SONG && (
@@ -127,12 +68,7 @@ const ShowOneSong = () => {
           <div>{<CommentInput />}</div>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
-              <div key={comment.id}>
-                <div>{comment.body}</div>
-                <button onClick={() => booleanChanger()}>Edit Comment</button>
-                <div>{commentEditor(comment.id, comment.id, commentBody)}</div>
-                {userDeleteComment(comment.userId, comment.id)}
-              </div>
+              <div key={comment.id}>{<DisplayComment comment={comment}/>}</div>
             )
           })}</div>
         </div>
