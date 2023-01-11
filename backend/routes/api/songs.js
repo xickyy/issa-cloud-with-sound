@@ -26,6 +26,7 @@ router.get('/', async(req, res) => {
   const songs = await Song.findAll({
     limit: size,
     offset: size * (page - 1),
+    include: {model: User}
   });
 
   return res.json({

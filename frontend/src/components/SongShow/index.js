@@ -43,10 +43,10 @@ const ShowSongs = () => {
       {SONGS && SONGS.map((song) => (
         <div key={song.id}>
           <h2>{song.title}</h2>
-          <div>{'By: artist name'}</div>
+          <div>By: {song.User.username}</div>
           <Link key={song.id} to={`/songs/${song.id}`}>{'Song Details'}</Link>
-
-        </div>))}
+        </div>
+      ))}
       <button onClick={() => handlePageMinus()}>Previous Page</button>
       <div>Page:{page}</div>
       <button onClick={() => handlePagePlus()}>Next Page</button>
