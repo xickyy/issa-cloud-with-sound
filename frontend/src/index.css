@@ -2,6 +2,6 @@
 
 body {
   height:100vh;
-  background-image: linear-gradient(to bottom right, darkorange, white);
+  background-image: linear-gradient(to bottom right, darkorange, white, darkorange);
   font-family: 'Crimson Text', serif;
 }

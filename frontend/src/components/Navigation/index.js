@@ -4,38 +4,40 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      < >
-      <NavLink to="/createSongs">Create Song</NavLink>
-      <NavLink to="/songs">All Songs</NavLink>
-      <ProfileButton user={sessionUser} />
+      <>
+        <NavLink className='navigation' to="/createSongs">Create Song</NavLink>
+        <NavLink className='navigation' to="/songs">All Songs</NavLink>
+        <ProfileButton user={sessionUser} />
       </>
 
     );
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/songs">All Songs</NavLink>
+        <NavLink className='navigation' to="/login">Log In</NavLink>
+        <NavLink className='navigation' to="/signup">Sign Up</NavLink>
+        <NavLink className='navigation' to="/songs">All Songs</NavLink>
 
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
-      <i className="fa-brands fa-soundcloud" />
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    <div className='navigation'>
+      <ul id='nav'>
+        <li>
+          <i className="fa-brands fa-soundcloud" />
+          <NavLink className='navigation' exact to="/">Home</NavLink>
+          {isLoaded && sessionLinks}
+        </li>
+      </ul>
+    </div>
   );
 }
 
