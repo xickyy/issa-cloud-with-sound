@@ -39,7 +39,7 @@ const ShowSongs = () => {
 
 
   return (
-    <div>
+    <div id='songPage'>
       {SONGS && SONGS.map((song) => (
         <div key={song.id}>
           <h2>{song.title}</h2>

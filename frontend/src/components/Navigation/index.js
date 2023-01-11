@@ -11,9 +11,9 @@ function Navigation({ isLoaded }){
   if (sessionUser) {
     sessionLinks = (
       < >
-      <NavLink to="/createSongs">Create Songs</NavLink>
+      <NavLink to="/createSongs">Create Song</NavLink>
+      <NavLink to="/songs">All Songs</NavLink>
       <ProfileButton user={sessionUser} />
-      <NavLink to="/songs">Songs</NavLink>
       </>
 
     );
@@ -31,6 +31,7 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
+      <i className="fa-brands fa-soundcloud" />
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
