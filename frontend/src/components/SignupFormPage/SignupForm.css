@@ -1,0 +1,17 @@
+#signup {
+  display: flex;
+  justify-content: 50%;
+  flex-direction: column;
+}
+
+#container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.input {
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between
+}
