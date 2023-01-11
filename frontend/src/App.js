@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import SongForm from "./components/SongForm";
 import SongShow from "./components/SongShow";
 import ShowOneSong from "./components/ShowOneSong";
+import HomePage from "./components/HomePage";
 import { getSongs } from "./store/songs";
 
 
@@ -23,7 +24,11 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
 
