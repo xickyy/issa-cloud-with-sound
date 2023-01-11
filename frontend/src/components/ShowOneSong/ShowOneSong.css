@@ -1,4 +1,2 @@
-#image {
-  height:100px;
-  width: 100px;
-}
+img.Image { max-width: 100%;}
+div#albumCover { width: 400px; }

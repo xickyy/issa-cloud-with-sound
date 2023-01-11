@@ -1,3 +1,5 @@
+import "./ShowOneSong.css"
+
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -58,7 +60,9 @@ const ShowOneSong = () => {
         <div>Song Description: {SONG.description} { }</div>
         <div>Album Title: {SONG.Album.title}</div>
         <div>Album Description: {SONG.Album.description} { }</div>
-        <img id='image' src={SONG.Album.imageUrl} height='25%' width='25%'/>
+        <div id='albumCover'>
+        <img id='image' src={SONG.Album.imageUrl} class='Image' alt=''/>
+        </div>
         <div>
           {userEditSong()}
           {userDeleteSong()}

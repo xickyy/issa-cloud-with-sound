@@ -11,30 +11,38 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-        <NavLink className='navigation' to="/createSongs">Create Song</NavLink>
-        <NavLink className='navigation' to="/songs">All Songs</NavLink>
-        <ProfileButton user={sessionUser} />
+      <div className='navigation'>
+        <NavLink id='nav' to="/createSongs">Create Song</NavLink>
+        <NavLink id='nav' to="/songs">All Songs</NavLink>
+      </div>
+      <div id='profileButton'>
+        <ProfileButton id='nav' user={sessionUser} />
+      </div>
       </>
 
     );
   } else {
     sessionLinks = (
-      <>
-        <NavLink className='navigation' to="/login">Log In</NavLink>
-        <NavLink className='navigation' to="/signup">Sign Up</NavLink>
-        <NavLink className='navigation' to="/songs">All Songs</NavLink>
+      <div className='navigation'>
+        <NavLink id='nav' to="/login">Log In</NavLink>
+        <NavLink id='nav' to="/signup">Sign Up</NavLink>
+        <NavLink id='nav' to="/songs">All Songs</NavLink>
 
-      </>
+      </div>
     );
   }
 
   return (
-    <div className='navigation'>
-      <ul id='nav'>
-        <li>
+    <div>
+      <ul>
+        <li id='allLinks'>
+          <div>
           <i className="fa-brands fa-soundcloud" />
-          <NavLink className='navigation' exact to="/">Home</NavLink>
+          <NavLink id='nav' exact to="/">Home</NavLink>
+          </div>
+          <div id='mainLinks'>
           {isLoaded && sessionLinks}
+          </div>
         </li>
       </ul>
     </div>

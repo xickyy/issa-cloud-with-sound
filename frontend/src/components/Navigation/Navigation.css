@@ -1,3 +1,24 @@
+#nav {
+  padding: 10px
+}
+
 .navigation {
-  margin: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+#profileButton {
+  display: flex;
+  flex-direction: column;
+}
+
+#allLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#mainLinks {
+  display: flex;
+  justify-content: center;
 }

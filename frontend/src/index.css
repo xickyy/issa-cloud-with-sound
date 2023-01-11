@@ -5,3 +5,7 @@ body {
   background-image: linear-gradient(to bottom right, darkorange, white, darkorange);
   font-family: 'Crimson Text', serif;
 }
+
+#errorText {
+  color: red;
+}

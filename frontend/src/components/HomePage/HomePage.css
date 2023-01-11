@@ -1,0 +1,18 @@
+#homepageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+img.Image { max-width: 100%;}
+div#ImageContainer { width: 600px;}
+#homeImageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#welcomeMessage {
+  display: flex;
+  justify-content: center;
+}

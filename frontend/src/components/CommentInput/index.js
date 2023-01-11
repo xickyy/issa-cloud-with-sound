@@ -34,7 +34,7 @@ const CommentInput = () => {
   if (sessionUser) {
     return (
       <form onSubmit={handleSubmit}>
-        <ul>
+        <ul id='errorText'>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <label>

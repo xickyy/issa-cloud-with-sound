@@ -36,7 +36,13 @@ function LoginFormPage() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={demoSubmit}>
+        <button>
+          Demo Log In
+        </button>
+        Click here to test the page features without signing up
+      </form>
+      <form onSubmit={handleSubmit} id="signIn">
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -59,11 +65,6 @@ function LoginFormPage() {
           />
         </label>
         <button type="submit">Log In</button>
-      </form>
-      <form onSubmit={demoSubmit}>
-        <button>
-          Demo Log In
-        </button>
       </form>
     </div>
 

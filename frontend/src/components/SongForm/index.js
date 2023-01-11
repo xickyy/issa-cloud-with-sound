@@ -74,13 +74,14 @@ const SongForm = () => {
 
 
   return (
-    <form onSubmit={handleSubmit} >
-      <ul>
+    <form onSubmit={handleSubmit} id='signupSong' >
+      <div id='containerSong'>
+      <ul id='errorText'>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <h2>Add a Song</h2>
 
-      <label>
+      <label className='inputSong'>
         Title
         <input
           type="text"
@@ -89,7 +90,7 @@ const SongForm = () => {
         />
       </label>
 
-      <label>
+      <label className='inputSong'>
         Description
         <textarea
           value={description}
@@ -97,7 +98,7 @@ const SongForm = () => {
         />
       </label>
 
-      <label>
+      <label className='inputSong'>
         Url
         <input
           type="text"
@@ -106,7 +107,7 @@ const SongForm = () => {
         />
       </label>
 
-      <label>
+      <label className='inputSong'>
         Image Url
         <input
           type="text"
@@ -115,7 +116,7 @@ const SongForm = () => {
         />
       </label>
 
-      <label>
+      <label className='inputSong'>
         Album
         <select value={albumId} onChange={e => setAlbumId(e.target.value)}>
           <option disabled>{'Please select an album'}</option>
@@ -132,6 +133,7 @@ const SongForm = () => {
       </label>
 
       <button type='submit'>Submit</button>
+      </div>
     </form>
   )
 }
