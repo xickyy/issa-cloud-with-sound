@@ -41,13 +41,13 @@ const ShowOneSong = () => {
 
 
   const userEditSong = () => {
-    if(userState.user && userState.user.id === SONG.userId){
+    if (userState.user && userState.user.id === SONG.userId) {
       return <button onClick={() => { history.push(`/songs/${songId}/edit`) }}>Edit Song</button>
     }
   }
 
   const userDeleteSong = () => {
-    if(userState.user && userState.user.id === SONG.userId) {
+    if (userState.user && userState.user.id === SONG.userId) {
       return <button onClick={() => { songDeleter() }}>Delete Song</button>
     }
   }
@@ -61,7 +61,7 @@ const ShowOneSong = () => {
         <div>Album Title: {SONG.Album.title}</div>
         <div>Album Description: {SONG.Album.description} { }</div>
         <div id='albumCover'>
-        <img id='image' src={SONG.Album.imageUrl} className='Image' alt=''/>
+          <img id='image' src={SONG.Album.imageUrl} className='Image' alt='' />
         </div>
         <div>
           {userEditSong()}
@@ -72,7 +72,7 @@ const ShowOneSong = () => {
           <div>{<CommentInput />}</div>
           <div>{COMMENTS && COMMENTS.map((comment) => {
             return (
-              <div key={comment.id}>{<DisplayComment comment={comment} SONG ={SONG}/>}</div>
+              <div key={comment.id}>{<DisplayComment comment={comment} SONG={SONG} />}</div>
             )
           })}</div>
         </div>
