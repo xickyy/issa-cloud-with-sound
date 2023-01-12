@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
     page = 1;
   }
   if (Number.isNaN(size) && !(size > 0)) {
-    size = 4;
+    size = 8;
   }
 
   const songs = await Song.findAll({

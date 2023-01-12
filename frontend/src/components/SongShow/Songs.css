@@ -8,7 +8,8 @@ div#albumCoverDisplay { width: 150px; }
 #songDisplay {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 2%;
+  padding: 2px;
 }
 
 #paginationButtons {
