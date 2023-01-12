@@ -26,7 +26,7 @@ router.get('/', async(req, res) => {
   const songs = await Song.findAll({
     limit: size,
     offset: size * (page - 1),
-    include: {model: User}
+    include: [{model: User}, {model: Album}]
   });
 
   return res.json({
@@ -138,7 +138,8 @@ router.post('/:songId/comments', validateComment, async (req, res, next) => {
       songId: parseInt(reqId),
       userId: req.user.id
     });
-    res.json(comment);
+    const newComment = await Comment.findByPk(comment.id, {include:{model: User}})
+    res.json(newComment);
   } else {
     const e = new Error('Could not find a song with the specified Id');
     e.status = 404;
@@ -151,7 +152,7 @@ router.get('/:songId/comments', async (req, res, next) => {
   let reqId = req.params.songId;
   let song = await Song.findOne({where: {id: reqId}});
   if(song && song.id.toString() === reqId) {
-    const comments = await Comment.findAll({where: {songId: reqId }});
+    const comments = await Comment.findAll({where: {songId: reqId }, include: {model: User}});
     res.json(comments);
   } else {
     const e = new Error("No song found with the specified Id");

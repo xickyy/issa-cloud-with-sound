@@ -61,7 +61,7 @@ const ShowOneSong = () => {
         <div>Album Title: {SONG.Album.title}</div>
         <div>Album Description: {SONG.Album.description} { }</div>
         <div id='albumCover'>
-        <img id='image' src={SONG.Album.imageUrl} class='Image' alt=''/>
+        <img id='image' src={SONG.Album.imageUrl} className='Image' alt=''/>
         </div>
         <div>
           {userEditSong()}

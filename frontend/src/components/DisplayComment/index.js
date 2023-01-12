@@ -68,7 +68,7 @@ const DisplayComment = ({ comment, SONG }) => {
   return (
     <div key={comment.id}>
       <div>
-        {SONG.User.username}: {comment.body}
+        {comment.User.username}: {comment.body}
       </div>
       <div>
         {userEditComment(comment.userId)}

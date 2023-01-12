@@ -21,7 +21,9 @@ const CommentInput = () => {
     e.preventDefault();
     const commentobj = await dispatch(newComment(songId, comment))
       .catch(async (res) => {
+        console.log('res', res)
         const data = await res.json();
+        console.log('data', data)
         if (data && data.errors) setErrors(data.errors);
       });
     if (commentobj) {

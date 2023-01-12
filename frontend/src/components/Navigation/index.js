@@ -14,6 +14,8 @@ function Navigation({ isLoaded }) {
       <div className='navigation'>
         <NavLink id='nav' to="/createSongs">Create Song</NavLink>
         <NavLink id='nav' to="/songs">All Songs</NavLink>
+        <a id='nav' href="https://github.com/xickyy/issa-cloud-with-sound/tree/main" target="_blank">Visit my github</a>
+        <a id='nav' href="https://www.linkedin.com/in/ricky-moore-b629b21ba/" target="_blank">Visit my Linked-in</a>
       </div>
       <div id='profileButton'>
         <ProfileButton id='nav' user={sessionUser} />
@@ -27,6 +29,8 @@ function Navigation({ isLoaded }) {
         <NavLink id='nav' to="/login">Log In</NavLink>
         <NavLink id='nav' to="/signup">Sign Up</NavLink>
         <NavLink id='nav' to="/songs">All Songs</NavLink>
+        <a id='nav' href="https://github.com/xickyy/issa-cloud-with-sound/tree/main" target="_blank">Visit my github</a>
+        <a id='nav' href="https://www.linkedin.com/in/ricky-moore-b629b21ba/" target="_blank">Visit my Linked-in</a>
 
       </div>
     );

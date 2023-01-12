@@ -39,17 +39,29 @@ const ShowSongs = () => {
 
 
   return (
-    <div id='songPage'>
-      {SONGS && SONGS.map((song) => (
-        <div key={song.id}>
-          <h2>{song.title}</h2>
-          <div>By: {song.User.username}</div>
-          <Link key={song.id} to={`/songs/${song.id}`}>{'Song Details'}</Link>
-        </div>
-      ))}
-      <button onClick={() => handlePageMinus()}>Previous Page</button>
-      <div>Page:{page}</div>
-      <button onClick={() => handlePagePlus()}>Next Page</button>
+    <div>
+
+      <div id='songPage'>
+        {SONGS && SONGS.map((song) => (
+          <div id='songDisplay' key={song.id}>
+            <h2>{song.title}</h2>
+            <div id='songDetails'>
+              <div id='albumCoverDisplay'>
+                <img src={song.Album.imageUrl} className='Image' alt='' />
+              </div>
+              <div>By: {song.User.username}</div>
+              <Link key={song.id} to={`/songs/${song.id}`}>{'Song Details'}</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div id='paginationButtons'>
+        <button id='singleButton' onClick={() => handlePageMinus()}>Previous Page</button>
+        <div>Page:{page}</div>
+        <button id='singleButton' onClick={() => handlePagePlus()}>Next Page</button>
+      </div>
+
     </div>
   );
 

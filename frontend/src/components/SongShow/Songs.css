@@ -1,1 +1,28 @@
+img.Image { max-width: 100%;}
+div#albumCoverDisplay { width: 150px; }
 
+#songPage {
+  display: flex;
+}
+
+#songDisplay {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+#paginationButtons {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+#singleButton {
+  margin: 20px;
+}
+
+#songDetails {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
